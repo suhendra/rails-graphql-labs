@@ -1,6 +1,18 @@
 Human.delete_all
 Droid.delete_all
 Friendship.delete_all
+Post.delete_all
+Comment.delete_all
+
+5.times do |post|
+  result = Post.create!(
+    title: "Title #{post}",
+    content: "Content of post #{post}"
+    )
+  3.times do |comment|
+    result.comments.create!( content: "Comment #{comment} of Post #{post}" )
+  end
+end
 
 luke = {
   id: '1000',
