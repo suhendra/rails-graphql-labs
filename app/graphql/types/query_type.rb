@@ -1,13 +1,27 @@
-Types::QueryType = GraphQL::ObjectType.define do
-  name "Query"
-  # Add root-level fields here.
-  # They will be entry points for queries on your schema.
+module Types
+  QueryType = GraphQL::ObjectType.define do
+    name "Query"
+    description "The query root for this schema"
 
-  # TODO: remove me
-  field :testField, types.String do
-    description "An example field added by the generator"
-    resolve ->(obj, args, ctx) {
-      "Hello World!"
-    }
+    field :allPosts, !types[Types::PostType] do
+      description "fetch all posts"
+      resolve -> (o, args, c) { Post.all }
+    end
+
+    # You can define fields on the fly:
+    field :hero do
+      type !CharacterInterface
+      description "The hero of the saga"
+
+      argument :episode, EpisodeEnum, "If provided, return the hero of that episode"
+
+      resolve -> (obj, args, ctx) do
+        args["episode"] == 5 ? Human.find(1000) : Droid.find(2001)
+      end
+    end
+
+    field :human, HumanType, field: Fields::FetchField.build(type: HumanType, model: Human)
+    field :droid, DroidType, field: Fields::FetchField.build(type: DroidType, model: Droid)
+    field :node, GraphQL::Relay::Node.field
   end
 end
