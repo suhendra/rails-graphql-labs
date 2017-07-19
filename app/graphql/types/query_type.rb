@@ -6,6 +6,7 @@ module Types
     field :allPosts, !types[Types::PostType] do
       description "fetch all posts"
       resolve -> (o, args, c) { Post.all }
+    end
 
     # You can define fields on the fly:
     field :hero do

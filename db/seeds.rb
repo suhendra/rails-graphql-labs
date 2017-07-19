@@ -97,3 +97,5 @@ HUMANS.each do |human|
   friend_ids.map { |to_id| create_friendship(human[:id], to_id) }
   Human.create!(human)
 end
+
+puts "Finish seeding all data."

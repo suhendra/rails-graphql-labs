@@ -1,5 +1,5 @@
 GraphqlLabsSchema = GraphQL::Schema.define do
-  mutation(Types::MutationType)
+  mutation Types::MutationType
   query Types::QueryType
 
   resolve_type ->(obj, ctx) do
