@@ -1,0 +1,15 @@
+query readHero {
+  newHopeHero:  hero(episode: NEWHOPE)  {
+    ... heroFields
+  }
+  empireHero:   hero(episode: EMPIRE)   {
+    ... heroFields
+  }
+  jediHero:     hero(episode: JEDI)     {
+    ... heroFields
+  }
+}
+
+fragment heroFields on Character {
+  name, id
+}
